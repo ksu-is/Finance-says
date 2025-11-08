@@ -1,0 +1,5 @@
+- [x] Create title for coding project
+- [x] Create description for project outcome
+- [x] Create Read.me
+- [x] Create and name Repository
+- [ ] Create another repository and upload development code to it
