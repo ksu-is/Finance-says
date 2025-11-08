@@ -2,4 +2,12 @@
 - [x] Create description for project outcome
 - [x] Create Read.me
 - [x] Create and name Repository
-- [ ] Create another repository and upload development code to it
+- [x] Create another repository and upload development code to it
+- [ ] find similar repository and clone it to team
+- [ ] analyze repository and note any methods and designs that will be useful
+- [ ] create a outline to producing desired code
+- [ ] begin coding on development repository
+- [ ] upload and test code to production
+- [ ] write report on findings
+- [ ] revise and edit
+      
