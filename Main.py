@@ -14,7 +14,7 @@ COLORS = {
 class SimonSaysGame:
     def __init__(self, master):
         self.master = master
-        self.master.title("Simon Says")
+        self.master.title("Finance Says")
 
         # Game state
         self.sequence = []
