@@ -7,7 +7,8 @@ COLORS = {
     "purple": "#aa2cee",
     "light_blue": "#00ffff",
     "orange": "#ff6f00",
-    "green": "#00ff6e"
+    "green": "#00ff6e",
+    "pink": "#ff006a"
 }
 
 
@@ -28,19 +29,20 @@ class SimonSaysGame:
             self.master, text="Score: 0", font=("Arial", 20))
         self.score_label.pack(pady=10)
 
-        # Canvas for colored pads
-        self.canvas = tk.Canvas(self.master, width=400, height=400)
-        self.canvas.pack(pady=10)
+        # Creates a Canvas for the colored pads (kind of like a blank sheet)
+        self.canvas = tk.Canvas(self.master, width=400, height=400) #canvas size is 400 x 400
+        self.canvas.pack(pady=10) #put into window with 10 pixels of padding (the space between score and the start button)
 
         # Create 4 colored pads (2x2 grid)
-        self.color_rects = {}  # map color -> rectangle id
+        self.color_rects = {}  # map color -> rectangle id (holds/stores rectangle ids)
 
-        # Positions: (x1, y1, x2, y2)
+        # Positions: (x1, y1, x2, y2) essentially a 4x4 box
         positions = {
             "purple": (0, 0, 200, 200),
             "light_blue": (200, 0, 400, 200),
             "orange": (0, 200, 200, 400),
-            "green": (200, 200, 400, 400)
+            "green": (200, 200, 400, 400),
+            "pink": (100, 100, 299, 299) 
         }
 
         for color, coords in positions.items():
