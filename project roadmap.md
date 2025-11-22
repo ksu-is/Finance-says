@@ -3,7 +3,7 @@
 - [x] Create Read.me
 - [x] Create and name Repository
 - [x] Create another repository and upload development code to it
-- [ ] find similar repository and clone it to team
+- [x] find similar repository and clone it to team
 - [ ] analyze repository and note any methods and designs that will be useful
 - [ ] create a outline to producing desired code
 - [ ] begin coding on development repository
