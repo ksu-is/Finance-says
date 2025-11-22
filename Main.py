@@ -4,10 +4,10 @@ import random
 
 # Define colors and their hex codes
 COLORS = {
-    "red": "#ff0000",
-    "blue": "#0000ff",
-    "green": "#00ff00",
-    "yellow": "#ffff00"
+    "purple": "#aa2cee",
+    "light_blue": "#00ffff",
+    "orange": "#ff6f00",
+    "green": "#00ff6e"
 }
 
 
@@ -37,10 +37,10 @@ class SimonSaysGame:
 
         # Positions: (x1, y1, x2, y2)
         positions = {
-            "red": (0, 0, 200, 200),
-            "blue": (200, 0, 400, 200),
-            "green": (0, 200, 200, 400),
-            "yellow": (200, 200, 400, 400)
+            "purple": (0, 0, 200, 200),
+            "light_blue": (200, 0, 400, 200),
+            "orange": (0, 200, 200, 400),
+            "green": (200, 200, 400, 400)
         }
 
         for color, coords in positions.items():
