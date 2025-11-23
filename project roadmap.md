@@ -4,7 +4,15 @@
 - [x] Create and name Repository
 - [x] Create another repository and upload development code to it
 - [x] find similar repository and clone it to team
-- [ ] analyze repository and note any methods and designs that will be useful
+- [x] Add an extra block
+- [x] change the colors
+- [x] Analyze reference code 
+- [x] analyze repository and note any methods and designs that will be useful
+- [ ] add white flash whenever sqaure is clicked
+- [ ] add prompt before game begins
+- [ ] add lives system
+- [ ] Look into changing background 
+- [ ] Deciede which finance chapter topic to cover 
 - [ ] create a outline to producing desired code
 - [ ] begin coding on development repository
 - [ ] upload and test code to production
