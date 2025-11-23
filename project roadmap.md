@@ -8,7 +8,7 @@
 - [x] change the colors
 - [x] Analyze reference code 
 - [x] analyze repository and note any methods and designs that will be useful
-- [ ] add white flash whenever sqaure is clicked
+- [x] add black flash whenever sqaure is clicked
 - [ ] add prompt before game begins
 - [ ] add lives system
 - [ ] Look into changing background 
