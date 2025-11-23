@@ -18,7 +18,7 @@ class SimonSaysGame:
         self.master.title("Finance Says") #Game title 
 
         # Game state
-        self.sequence = [] #where te computer generates and stores random colors (sequence)
+        self.sequence = [] #where the computer generates and stores random colors (sequence)
         self.sequence_index = 0 #tracks the step of the sequence the computer is currently flashing
         self.player_sequence_index = 0 #keeps track of the players inputs
         self.score = 0 #Tracks what round the players on 
@@ -27,7 +27,7 @@ class SimonSaysGame:
         # Score label
         self.score_label = tk.Label(
             self.master, text="Score: 0", font=("Arial", 20)) #main window of tk
-        self.score_label.pack(pady=10) #decided positionin to be moved from top to bottom, which creates 10 px of spcae above/below
+        self.score_label.pack(pady=10) #decided positioning to be moved from top to bottom, which creates 10 px of spcae above/below
 
         # Creates a Canvas for the colored pads (kind of like a blank sheet)
         self.canvas = tk.Canvas(self.master, width=400, height=400) #canvas size is 400 x 400
@@ -102,7 +102,7 @@ class SimonSaysGame:
             lambda r=rect_id, c=color: self.canvas.itemconfig(r, fill=COLORS[c])#runs after, reverses the flash
         )
 
-        self.sequence_index += 1.  #moves on to the next color
+        self.sequence_index += 1  #moves on to the next color
         self.master.after(700, self.highlight_next_color)
 
     def color_clicked(self, color):
@@ -110,6 +110,19 @@ class SimonSaysGame:
         # Ignore clicks while the sequence is being shown
         if self.showing_sequence:
             return
+        
+        rect_id = self.color_rects[color]
+        original_color = COLORS[color]
+
+        # --- Flash on click ---
+        self.canvas.itemconfig(rect_id, fill="black")
+        self.master.after(
+            200, 
+            lambda r=rect_id, c=original_color: self.canvas.itemconfig(r, fill=c)
+        )
+        # ----------------------
+
+    
 
         expected_color = self.sequence[self.player_sequence_index]
 
@@ -117,4 +130,20 @@ class SimonSaysGame:
             self.player_sequence_index += 1
 
             # If they matched the whole sequence correctly
-            if self.player_sequence_index == len(self.seq
+            if self.player_sequence_index == len(self.sequence):
+                self.score += 1
+                self.score_label.config(text=f"Score: {self.score}")
+                self.add_color_and_play()
+        else:
+            self.end_game()
+
+    def end_game(self):
+        messagebox.showinfo("Game Over", f"Your final score is {self.score}")
+        self.showing_sequence = False
+        self.start_button.config(state=tk.NORMAL)
+
+
+if __name__ == "__main__":
+    root = tk.Tk() #creates main application window
+    game = SimonSaysGame(root) #runs game in window
+    root.mainloop() #runs forever
