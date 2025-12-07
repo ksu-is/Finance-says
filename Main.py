@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 import random
 
 # Define colors and their hex codes
@@ -67,11 +67,26 @@ class SimonSaysGame:
         self.start_button.pack(pady=20)
 
     def start_game(self):
-        """Reset and start a new game."""
+        """Show a prompt, then reset and start a new game."""
+        ##adding starting prompt
+        ready = messagebox.askyesno(
+            "Ready to Play?",
+            "You will be asked a finance-based question.\n"
+            "Once answered correctly you will see a sequence of colors.\n"
+            "Repeat the sequence by clicking the pads in order.\n"
+            "Are you ready to start?"
+        )
+
+        if not ready:
+            #if no is pressed do nothing
+            return
+
+        # If they clicked Yes, then start the game
         self.score = 0
         self.score_label.config(text=f"Score: {self.score}")
         self.sequence = []
         self.add_color_and_play()
+
 
     def add_color_and_play(self):
         """Add a new random color to the sequence and play it."""
