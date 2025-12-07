@@ -16,6 +16,8 @@ class SimonSaysGame:
     def __init__(self, master):
         self.master = master
         self.master.title("Finance Says") #Game title 
+        #changed background color
+        self.master.configure(bg="#0F172A")
 
         # Game state
         self.sequence = [] #where the computer generates and stores random colors (sequence)
@@ -23,14 +25,30 @@ class SimonSaysGame:
         self.player_sequence_index = 0 #keeps track of the players inputs
         self.score = 0 #Tracks what round the players on 
         self.showing_sequence = False  # True while the computer is flashing colors
+        self.questions = [
+            {
+                "question": "What does APR stand for?",
+                "answer": "annual percentage rate"
+            },
+            {
+                "question": "If you save $10 a week, how much will you have after 5 weeks?",
+                "answer": "50"
+            },
+            {
+                "question": "Is a stock generally more risky than a savings account? (yes/no)",
+                "answer": "yes"
+            }
+        ]
+        self.current_question_index = 0
 
         # Score label
         self.score_label = tk.Label(
-            self.master, text="Score: 0", font=("Arial", 20)) #main window of tk
+            self.master, text="Score: 0", font=("Arial", 20,"bold"),bg="#0F172A",fg="#E178C8")
+         #main window of tk
         self.score_label.pack(pady=10) #decided positioning to be moved from top to bottom, which creates 10 px of spcae above/below
 
         # Creates a Canvas for the colored pads (kind of like a blank sheet)
-        self.canvas = tk.Canvas(self.master, width=400, height=400) #canvas size is 400 x 400
+        self.canvas = tk.Canvas(self.master, width=400, height=400, bg="#020617", highlightthickness=0) #canvas size is 400 x 400
         self.canvas.pack(pady=10) #put into window with 10 pixels of padding (the space between score and the start button)
 
         # Create 4 colored pads (2x2 grid)
@@ -59,11 +77,15 @@ class SimonSaysGame:
 
         # Start button
         self.start_button = tk.Button(
-            self.master,
-            text="Start",
-            font=("Arial", 16),
-            command=self.start_game #call function when button is clicked
-        )
+    self.master, text="Start",
+    font=("Arial", 16, "bold"),
+    bg="#38BDF8", fg="black",
+    activebackground="#7DD3FC", activeforeground="black",
+    bd=0, highlightthickness=0, relief="flat",
+    command=self.start_game
+)
+
+
         self.start_button.pack(pady=20)
 
     def start_game(self):
@@ -85,8 +107,41 @@ class SimonSaysGame:
         self.score = 0
         self.score_label.config(text=f"Score: {self.score}")
         self.sequence = []
-        self.add_color_and_play()
+        self.ask_finance_question()
 
+    def ask_finance_question(self):
+        """Ask the next finance question. Wrong answer ends the game."""
+        # Loop back to first question if we reach the end
+        if self.current_question_index >= len(self.questions):
+            self.current_question_index = 0
+
+        q = self.questions[self.current_question_index]
+        self.current_question_index += 1
+
+        answer = simpledialog.askstring(
+            "Finance Question",
+            q["question"],
+            parent=self.master
+        )
+
+        # If user closes the dialog, end the game
+        if answer is None:
+            self.end_game()
+            return
+
+        # Check answer (case-insensitive)
+        if answer.strip().lower() == q["answer"]:
+            messagebox.showinfo(
+                "Correct!",
+                "Correct! Get ready for the color sequence."
+            )
+            self.add_color_and_play()
+        else:
+            messagebox.showinfo(
+                "Incorrect",
+                f"Incorrect.\nThe correct answer was:\n{q['answer']}"
+            )
+            self.end_game()
 
     def add_color_and_play(self):
         """Add a new random color to the sequence and play it."""
@@ -150,7 +205,7 @@ class SimonSaysGame:
                 self.score_label.config(text=f"Score: {self.score}")
                 self.add_color_and_play()
         else:
-            self.end_game()
+            self.ask_finance_question()
 
     def end_game(self):
         messagebox.showinfo("Game Over", f"Your final score is {self.score}")
