@@ -27,17 +27,13 @@ class SimonSaysGame:
         self.showing_sequence = False  # True while the computer is flashing colors
         self.questions = [
             {
-                "question": "What does APR stand for?",
-                "answer": "annual percentage rate"
+                "question": "What does FV stand for?",
+                "answer": "Future Value"
             },
             {
-                "question": "If you save $10 a week, how much will you have after 5 weeks?",
-                "answer": "50"
+                "question": "As FV interest increases ___ Increases",
+                "answer": "FV"
             },
-            {
-                "question": "Is a stock generally more risky than a savings account? (yes/no)",
-                "answer": "yes"
-            }
         ]
         self.current_question_index = 0
 
@@ -77,14 +73,13 @@ class SimonSaysGame:
 
         # Start button
         self.start_button = tk.Button(
-    self.master, text="Start",
-    font=("Arial", 16, "bold"),
-    bg="#38BDF8", fg="black",
-    activebackground="#7DD3FC", activeforeground="black",
-    bd=0, highlightthickness=0, relief="flat",
-    command=self.start_game
-)
-
+            self.master, text="Start",
+            font=("Arial", 16, "bold"),
+            bg="#38BDF8", fg="black",
+            activebackground="#7DD3FC", activeforeground="black",
+            bd=0, highlightthickness=0, relief="flat",
+            command=self.start_game
+        )
 
         self.start_button.pack(pady=20)
 
@@ -110,36 +105,48 @@ class SimonSaysGame:
         self.ask_finance_question()
 
     def ask_finance_question(self):
-        """Ask the next finance question. Wrong answer ends the game."""
-        # Loop back to first question if we reach the end
-        if self.current_question_index >= len(self.questions):
-            self.current_question_index = 0
+        self.finance_question_math()
 
-        q = self.questions[self.current_question_index]
-        self.current_question_index += 1
+    def finance_question_math(self):
+        pmt = random.randint(50, 200) #yearly payment
+        years = random.randint(5, 20) #number of years
+        r = 0.10  #rate
+        
+        fv = pmt * ((1 + r) ** years - 1) / r #FV formula
+        fv_rounded = round(fv, 2) 
 
-        answer = simpledialog.askstring(
+        question_text = (
+            f"If you invest ${pmt} per year for {years} years into an account\n"
+            f"that earns {int(r * 100)}% interest per year, what is the future value?\n"
+            f"(Round your answer to 2 decimal places.)"
+        )
+        answer_str = simpledialog.askstring(
             "Finance Question",
-            q["question"],
+            question_text,
             parent=self.master
         )
 
-        # If user closes the dialog, end the game
-        if answer is None:
+        if answer_str is None:
             self.end_game()
             return
 
-        # Check answer (case-insensitive)
-        if answer.strip().lower() == q["answer"]:
+        try:
+            user_val = float(answer_str)
+        except ValueError:
+            messagebox.showinfo("Incorrect", "That is not a valid number.")
+            self.end_game()
+            return
+
+        if abs(user_val - fv_rounded) <= 0.5:
             messagebox.showinfo(
                 "Correct!",
-                "Correct! Get ready for the color sequence."
+                f"Awesome! The correct FV was about ${fv_rounded}.\nGet ready for the color sequence."
             )
             self.add_color_and_play()
         else:
             messagebox.showinfo(
-                "Incorrect",
-                f"Incorrect.\nThe correct answer was:\n{q['answer']}"
+                "Incorrect!",
+                f"Not quite.\nThe correct FV was about ${fv_rounded}.\nGame over."
             )
             self.end_game()
 
@@ -191,8 +198,6 @@ class SimonSaysGame:
             lambda r=rect_id, c=original_color: self.canvas.itemconfig(r, fill=c)
         )
         # ----------------------
-
-    
 
         expected_color = self.sequence[self.player_sequence_index]
 
