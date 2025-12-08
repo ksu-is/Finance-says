@@ -9,11 +9,11 @@
 - [x] Analyze reference code 
 - [x] analyze repository and note any methods and designs that will be useful
 - [x] add black flash whenever sqaure is clicked
-- [ ] add prompt before game begins
-- [ ] add lives system
-- [ ] Look into changing background 
-- [ ] Deciede which finance chapter topic to cover 
-- [ ] create a outline to producing desired code
+- [x] add prompt before game begins
+- [x] add lives system(wouldnt work for game)
+- [x] Look into changing background 
+- [x] Deciede which finance chapter topic to cover (decided on chapter 4 The Time Value and Money)
+- [x] create a outline to producing desired code
 - [ ] begin coding on development repository
 - [ ] upload and test code to production
 - [ ] write report on findings
